@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pokedex/consts/consts_app.dart';
 
+import 'app_bar.dart';
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -31,42 +33,7 @@ class HomePage extends StatelessWidget {
                 Container(
                   height: statusWidth,
                 ),
-                Container(
-                  child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.only(top: 20, right: 6),
-                                child: IconButton(
-                                  icon: Icon(Icons.menu),
-                                  onPressed: () {},
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "Flutter PDX",
-                              style: TextStyle(
-                                  fontFamily: 'Google',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                  height: 150,
-                  color: Color.fromARGB(200, 240, 245, 210),
-                )
+                AppBarHome()
               ],
             ),
           )
