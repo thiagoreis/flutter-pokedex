@@ -1,12 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pokedex/consts/consts_app.dart';
+import 'package:pokedex/models/pokeapi.dart';
+import 'package:pokedex/stores/pokeapi_store.dart';
 
 import 'app_bar.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    PokeApiStorage pokeApiStorage = PokeApiStorage();
+    pokeApiStorage.fetchPokemonList();
     double screenWidth = MediaQuery.of(context).size.width;
     double statusWidth = MediaQuery.of(context).padding.top;
     return Scaffold(
@@ -35,24 +40,20 @@ class HomePage extends StatelessWidget {
                 ),
                 AppBarHome(),
                 Expanded(
-                  child: Container(
-                    child: ListView(
-                      children: <Widget>[
-                        ListTile(
-                          title: Text("P"),
-                        ),
-                        ListTile(
-                          title: Text("P"),
-                        ),
-                        ListTile(
-                          title: Text("P"),
-                        ),
-                        ListTile(
-                          title: Text("P"),
-                        ),
-                      ],
-                    ),
-                  ),
+                  child: Container(child: Observer(
+                    builder: (BuildContext context) {
+                      PokeApi _pokeApi = pokeApiStorage.pokeApi;
+                      return (pokeApiStorage.pokeApi != null)
+                          ? ListView.builder(
+                              itemCount: _pokeApi.pokemon.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  title: Text(_pokeApi.pokemon[index].name),
+                                );
+                              })
+                          : Center(child: CircularProgressIndicator());
+                    },
+                  )),
                 )
               ],
             ),
